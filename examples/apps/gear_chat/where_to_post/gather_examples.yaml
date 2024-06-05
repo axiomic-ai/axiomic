@@ -1,0 +1,61 @@
+
+# These is few shot prompting to show how to extract information from text.
+# In priciple, you shouldn't need to modify these, it should be sufficient to only
+# modify gather_definition and the LLM should be able to generalize.
+# If you're having issues with your LLM not generalizing, you may want to add more examples here.
+
+- user:
+
+    text: |
+      User:
+        The customer says they will spend up to $100 to reduce the time it takes them manufacture their widget.
+      
+      Agent:
+        When do they want to buy?
+
+      User:
+        I don't know, but they said John needs to approve the deal first and I haven't talked to him yet.
+
+    items:
+      - name: customer_budget
+        description: |
+          The budget or budget range the customer has stated, and/or their reaction to a range or number the sales person has offered.
+
+      - name: key_pain_point
+        description: |
+          The key pain point identified by customer
+
+      - name: timeline
+        description: |
+          The timeline the customer intends to buy on
+
+      - name: talked_to_decision_maker
+        description: |
+          Is the sales person talking to the actual decision maker?
+
+      - name: customer_said_yes
+        description: |
+          Did the customer say "yes" to buy.
+
+  agent:
+
+    items:
+      - name: customer_budget
+        extraction: up to $100
+        extracted: COMPLETE
+
+      - name: key_pain_point
+        extraction: Reduce time to manufacture their widget
+        extracted: COMPLETE
+
+      - name: timeline
+        extraction: The sales person has no information on the timeline
+        extracted: NO_DATA
+
+      - name: talked_to_decision_maker
+        extraction: The sales person is NOT talking to the decision maker
+        extracted: COMPLETE
+
+      - name: customer_said_yes
+        extraction: Unclear if the customer yes to buy or not.
+        extracted: NO_DATA

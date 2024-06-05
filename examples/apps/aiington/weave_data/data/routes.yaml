@@ -1,0 +1,15 @@
+
+- user: |
+    Reply to a tweet that is critisim of George A.I.ington or AI in general
+  agent: |
+    "REPLY_CRITISIM"
+
+- user: |
+    Reply to a tweet that is positive towards AI
+  agent: |
+    "REPLY_FRIENDLY"
+
+- user: |
+    An ask to make a declaration.
+  agent: |
+    "REPLY_DECLARATION"

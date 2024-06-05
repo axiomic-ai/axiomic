@@ -1,0 +1,40 @@
+axiomic.egg-info
+axiomic.egg-info/
+
+*.pyc
+
+# Notebook checkpoints
+examples/tutorials/.ipynb_checkpoints/
+
+# Build artifacts
+weave.egg-info/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore node modules
+node_modules/
+
+# Ignore logs
+*.log
+
+# Ignore IDE specific files
+.idea/
+*.iml
+.vscode/
+
+# Ignore build files
+dist/
+build/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore .env files
+.env
+# Ignore .env files
+*.env

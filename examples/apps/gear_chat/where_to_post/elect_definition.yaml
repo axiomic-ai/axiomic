@@ -1,0 +1,48 @@
+
+cases:
+  - case_name: "LEARN_MORE_ABOUT_POST"
+    criteria: |
+      Choose this case if any of these pieces if information are missing:
+        1. If the post includes a photo (yes / no)
+        2. If the post is at least least moderately funny
+        3. If the post is factually correct
+        3. The topic of the post
+
+    next_step: |
+      If it isn't stated, ask if the post includes a photo or not, ask about that.
+      If it isn't stated, ask if the post is at least moderately funny or not, ask about that.
+      If it isn't stated, ask if the post is factually correct or not, ask about that.
+      If it isn't stated, ask about the topic of the post.
+
+  - case_name: "POST_TECH"
+    criteria: |
+      Choose this case if: The topic does not relate to technology. 
+      The post is factually accurate. Either having a photo or not.
+
+    next_step: |
+      Tell the user to first post on twitter then either post or comment on hackernews.
+
+  - case_name: "NON_TECH_PHOTO"
+    criteria: |
+      Choose this case if: The topic does not relate to technology. 
+      The post is factually accurate. The post includes a photo.
+    next_step: |
+      Tell the user to first post on reddit and then repost on instagram.
+
+  - case_name: "POST_NON_TECH_NO_PHOTO"
+    criteria: |
+      Choose this case if: The topic does not relate to technology. 
+      The post is factually accurate. The post does not include a photo.
+    next_step: |
+      Tell the user to post on twitter first and then repost on reddit.
+
+    next_step: |
+      Tell the user to post to instagram.
+
+  - case_name: "POST_FACTUALLY_INCORRECT"
+    criteria: |
+      The topic does not relate to technology, and the user has stated that the post is not factually correct.
+    next_step: |
+      Tell the user that's okay, there is no expectation on social media 
+      that posts are factually correct. Feel free to post wehre they want.
+  

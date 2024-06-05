@@ -1,0 +1,17 @@
+
+description: |
+  Extract data from a conversation. The conversation is about a social media post,
+  you need to determine if the post has a photo, if the user states if the post is factually correct or not, and the topic of the post.
+
+items:
+  - name: HAS_PHOTO
+    description: |
+      Extract Wether or not the post has a photo.
+
+  - name: FACTUALLY_CORRECT
+    description: |
+      Extract if the user states if the post is factually correct or not.
+
+  - name: POST_TOPIC
+    description: |
+      The topic of the post in one sentence.

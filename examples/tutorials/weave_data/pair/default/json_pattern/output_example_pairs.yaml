@@ -1,0 +1,38 @@
+- A: |
+    casual street wear
+  B: |
+    {
+      "top": {
+        "material": "cotton",
+        "color": "navy blue",
+        "size": "medium",
+        "kind": "teeshirt"
+      },
+      "bottom": {
+        "material": "denim",
+        "color": "light wash",
+        "size": "32",
+        "kind": "pants"
+      }
+    }
+
+- A: |
+    A formal evening
+  B: |
+    {
+      "top": {
+        "material": "silk",
+        "color": "black",
+        "size": "large",
+        "kind": "dress shirt"
+      },
+      "bottom": {
+        "material": "wool",
+        "color": "black",
+        "size": "34",
+        "kind": "dress pants"
+      }
+    }
+
+
+

@@ -1,0 +1,5 @@
+{p/builtin:sysprompt:continue_the_pattern}
+
+{p/builtin:sysprompt:obey_jsonschema}
+
+{p/json_pattern:outfit_schema}

@@ -1,0 +1,5 @@
+Using this criteria: 
+{criteria}
+
+Sort this list of strings:
+{list_of_strings}

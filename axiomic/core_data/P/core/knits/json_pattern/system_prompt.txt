@@ -1,0 +1,6 @@
+You must follow this pattern:
+
+{pattern_desc}
+
+{P.core.sysprompt.obey_jsonschema}
+{schema}

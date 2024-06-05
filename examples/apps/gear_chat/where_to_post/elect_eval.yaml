@@ -1,0 +1,48 @@
+
+- user: |
+    HAS_PHOTO: [COMPLETE] Yes
+    FACTUALLY_CORRECT: [COMPLETE] Is not factually Correct
+    POST_TOPIC: [COMPLETE] Advice on watering plants.
+  agent: "POST_FACTUALLY_INCORRECT"
+
+- user: |
+    HAS_PHOTO: [COMPLETE] Yes
+    FACTUALLY_CORRECT: [COMPLETE] Is factually Correct
+    POST_TOPIC: [COMPLETE] A new computer is being luanched.
+  agent: "POST_TECH"
+
+- user: |
+    HAS_PHOTO: [COMPLETE] Yes
+    FACTUALLY_CORRECT: [COMPLETE] Is factually Correct
+    POST_TOPIC: [COMPLETE] Fun ideas for holiday plans
+  agent: "NON_TECH_PHOTO"
+
+- user: |
+    HAS_PHOTO: [COMPLETE] No 
+    FACTUALLY_CORRECT: [COMPLETE] Is factually Correct
+    POST_TOPIC: [COMPLETE] How to save money this spring.
+  agent: "POST_NON_TECH_NO_PHOTO"
+
+- user: |
+    HAS_PHOTO: [NO_DATA] No Data
+    FACTUALLY_CORRECT: [NO_DATA] No Data
+    POST_TOPIC: [NO_DATA] No Data
+  agent: "LEARN_MORE_ABOUT_POST"
+
+- user: |
+    HAS_PHOTO: [COMPLETE] No
+    FACTUALLY_CORRECT: [COMPLETE] Is Factually Correct
+    POST_TOPIC: [COMPLETE] Launch a new AI service to customers
+  agent: "POST_TECH"
+
+- user: |
+    HAS_PHOTO: [COMPLETE] Yes
+    FACTUALLY_CORRECT: [COMPLETE] is factual
+    POST_TOPIC: [COMPLETE] a salad I made
+  agent: "NON_TECH_PHOTO"
+
+- user: |
+    HAS_PHOTO: [NO_DATA] No Data
+    FACTUALLY_CORRECT: [COMPLETE] Is not factually Correct
+    POST_TOPIC: [NO_DATA] No Data
+  agent: "POST_FACTUALLY_INCORRECT"

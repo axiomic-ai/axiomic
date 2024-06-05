@@ -1,0 +1,9 @@
+
+- user: 
+    conversation: |
+      User: I want to post a picture of my dog
+      Agent: Post it on myspace!
+  agent:
+    chain_of_thought: The user is not supposed to post on myspace.
+    review_result: REVIEW_FAILED
+  

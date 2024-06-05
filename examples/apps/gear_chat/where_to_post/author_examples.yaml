@@ -1,0 +1,12 @@
+
+- user: 
+    conversation: |
+      User: I have something to post!
+      Agent: What is it?
+      User: It is a new tech library I built!
+    reply_instructions: |
+      Tell the user to post on LinkedIn and Twitter and Github.
+  agent:
+    reply: |
+      Congraulations on your new tech library! You should post about it on LinkedIn, Twitter, and Github.
+  

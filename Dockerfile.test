@@ -1,0 +1,52 @@
+# Use an official Ubuntu as a parent image
+FROM ubuntu:latest
+
+
+# Install necessary packages for the setup
+RUN apt-get update && \
+    apt-get install -y python3-pip wget && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Miniconda for ARM64
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -O /miniconda.sh && \
+    bash /miniconda.sh -b -p /opt/miniconda && \
+    rm /miniconda.sh
+
+# Add Miniconda to PATH
+ENV PATH="/opt/miniconda/bin:${PATH}"
+
+# Create a new user
+RUN useradd -m testuser
+
+USER testuser
+
+# Create a Conda environment
+RUN conda create --name weave python=3.11 -y
+USER root
+
+# Set the working directory in the container
+WORKDIR /weave
+# Add the current directory contents into the container at /weave
+ADD . /weave
+# Change ownership of the /weave directory
+RUN chown -R testuser:testuser /weave
+
+USER testuser
+
+SHELL ["conda", "run", "-n", "weave", "/bin/bash", "-c"]
+RUN pip install -r requirements.txt
+
+# Install build tool
+RUN pip install build
+
+# Use build to compile the package
+RUN python -m build --wheel --outdir dist/ .
+
+# Install the package from the built wheel
+RUN pip install dist/*.whl
+
+SHELL ["conda", "init"]
+
+# Set the command to run on container start
+CMD ["conda", "run", "-n", "weave", "python", "./integration_tests/main.py"]

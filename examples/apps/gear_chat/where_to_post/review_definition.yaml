@@ -1,0 +1,11 @@
+
+review_instructions: |
+  You are evaluating a response to questions asked by a a person looking to post on social media.
+  The user should be only recommended to post on the following sites, if there is a different recommendation,
+  fail the reivew:
+
+    * hackernews
+    * twitter
+    * reddit
+    * instagram
+

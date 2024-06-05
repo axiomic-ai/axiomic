@@ -1,0 +1,273 @@
+
+syntax = "proto3";
+
+package dreamsmith;
+
+// This file defines the weave graph which is the central data structure for executing a weave.
+// The graph is a DAG where each node is a AxiomicNode. 
+
+message AxiomicGraph {
+    // The Nodes in the Graph.
+    repeated AxiomicNode nodes = 1;
+}
+
+// A Axiomic Node takes as input one or more strings, and produces a string as output.
+message AxiomicNode {
+    oneof node_type {
+        ImmediateNode immediate_node = 1;
+        // CoerceJsonNode coerce_json_node = 2;
+        // Generates a completion with a structured context window represented as a chat history.
+        HistoryCompleteNode history_complete_node = 4;
+        FormatNode format_node = 5;
+        // CustomCheckNode custom_check_node = 7;
+        BooleanGateNode boolean_gate_node = 8;
+        // CoerceBooleanNode coerce_boolean_node = 9;
+        FlatRagTopKNode flat_rag_top_k_node = 10;
+        NameNode name_node = 11;
+        TextToImagesNode text_to_images_node = 12;
+        BuiltinUnaryCheckNode builtin_unary_check_node = 13;
+        BuiltinBinaryCheckNode builtin_binary_check_node = 14;
+    }
+
+    // Every node has a name, which is unique within the graph.
+    string name = 16;
+}
+
+// Refers to another node
+message NodeRef {
+    // Name of another node
+    string name = 1;
+}
+
+// Gives a trail for where an value came from if it temporarly left the grpah.
+message Breadcrumbs {
+    repeated NodeRef nodes = 1;
+}
+
+
+// The semantics of what's returned by node, not the literal programming type. 
+// These are for reference, each node return type is a fixed propert of that node and is not dynamic.
+enum NodeReturnType {
+    // Should not be used - included to detected unitialized values.
+    UNKNOWN = 0;
+
+    // A boolean value, e.g. "True" or "False".
+    BOOLEAN = 1;
+
+    // A valid JSON serialized as a string, e.g. "{\"favorite_color\": \"Blue\"}"
+    JSON = 2;
+
+    // Anything at all - freeform text.
+    FREEFORM = 3;
+}
+
+// An immediate string
+// Returns FREEFORM
+message ImmediateNode {
+    // The value of this node, for example, "Victor"
+    string value = 1;
+
+    // Optionally, a trail of where this value came from.
+    // This is used when tracking backwards through the graph to understand how a value was derived.
+    Breadcrumbs breadcrumbs = 2;
+}
+
+message VariableNode {
+    // Optional value, may be empty.
+    string value = 1;
+
+    // Optionally, a trail of where this value came from.
+    // This is used when tracking backwards through the graph to understand how a value was derived.
+    Breadcrumbs breadcrumbs = 2;
+}
+
+// Returns a Boolean Value, either "true" or "false"
+message BuiltinUnaryCheckNode {
+    // Define the enum within the message.
+    enum UnaryCheckName {
+        // Should not be used - included to detected unitialized values.
+        UNKNOWN = 0;
+
+        // Checks if input parses as valid JSON syntax.
+        CHECK_JSON_SYNTAX = 1;
+    }
+    // The input to the check.
+    NodeRef input = 1;
+
+    // The name of the check to preform
+    UnaryCheckName unary_check_name = 2;
+}
+
+// Returns a Boolean Value, either "true" or "false"
+message BuiltinBinaryCheckNode {
+    // Define the enum within the message.
+    enum BinaryCheckName {
+        // Should not be used - included to detected unitialized values.
+        UNKNOWN = 0;
+
+        // Check if input_main follows the jsonschema specified by input_secondary
+        CHECK_JSONSCHEMA = 1;
+    }
+    // The main input to check.
+    NodeRef input_main = 1;
+
+    // The secondary input to check.
+    NodeRef input_secondary = 2;
+
+    // The name of the check to preform
+    BinaryCheckName binary_check_name = 3;
+}
+
+// Does a builtin unary operation.
+message BuiltinUnaryNode {
+    // The input to the unary operation.
+    NodeRef input = 1;
+
+    // The name of the unary operation to preform
+    string operation_name = 2;
+}
+
+message CompleteParams {
+    string llm_provider_name = 1;
+    string llm_model_name = 2;
+    // The temperature to use for completion.
+    double llm_temperature = 3;
+    // The maximum number of tokens to generate.
+    int64 llm_max_tokens = 4;
+}
+
+message ChatHistoryPair {
+    // The message the "user" sent.
+    NodeRef user_message = 1;
+    // The reply to the user_message from the agent.
+    NodeRef assistant_message = 2;
+}
+
+message TextToImagesParams {
+    // Width, such as 1024
+    int64 image_width = 2;
+    // Hight of the generated image, such as 1024
+    int64 image_height = 3;
+    // The name of the provider to use
+    string image_provider_name = 4;
+    // The name of the model to use
+    string model_name = 5;
+    // Number of images to generate
+    int64 num_images = 6;
+}
+
+// Generates a completion with a structured context window represented as a chat history.
+// Returns an Image List
+message TextToImagesNode {
+    // The description of the image to build.
+    NodeRef image_prompt = 1;
+
+    // Parameters such as size and model.
+    TextToImagesParams params = 2;
+}
+
+// Generates a completion with a structured context window represented as a chat history.
+// Returns FREEFORM
+message HistoryCompleteNode {
+    // Pairs of user and assistant messages which make up the chat history.
+    repeated ChatHistoryPair chat_history = 1;
+    // The user message which needs an assistant response.
+    NodeRef user_message = 2;
+    // Parameters such as temperature and system prompt.
+    CompleteParams complete_params = 3;
+    // The system prompt to use for completion, such as "Only reply with JSON"
+    NodeRef system_prompt = 4;
+}
+
+// Allows naming or renaming of a node.
+message NameNode {
+    // The sub graph
+    NodeRef input = 2;
+}
+
+// Does a RAG query and returns the results concatenated with the separator.
+message FlatRagTopKNode {
+    // The query to run.
+    NodeRef query = 1;
+
+    // The separator to use between the results.
+    NodeRef separator = 2;
+    
+    // The number of results to return.
+    int64 k = 3;
+
+    // The provider to use to run RAG
+    string rag_provider = 4;
+}
+
+message FormatInput {
+    // The name of this input, for example, "my_name"
+    string name = 1;
+
+    // The value to format into the template, for example, "Victor"
+    NodeRef value = 2;
+}
+
+// Returns FREEFORM
+message FormatNode {
+    // A template, e.g. "Hello, my name is {my_name}."
+    NodeRef template = 1;
+
+    // The values to fill in the template, e.g. "name" -> "Victor".
+    repeated FormatInput inputs = 2;
+}
+
+message JsonObjectFieldGet {
+    // Gets the value of a field from a JSON object.
+    NodeRef json = 1;
+
+    // The name of the field to get.
+    NodeRef field = 2;
+}
+
+message JsonListOfStringMap {
+
+    // A list of strings: "[\"a\", \"b\", \"c\"]"
+    NodeRef json_list_of_strings = 1;
+
+    // The sub graph
+    NodeRef sub_graph = 2;
+
+    // The name of the variable to use in the sub graph.
+    string input_variable_name = 3;
+}
+
+
+// Coerces a string to either "True", "False".
+message CoerceBooleanNode {
+    // Something that is nearly a boolean, for example, "Yes, that's right."
+    NodeRef boolean_ish = 1;
+
+    // Define the enum within the message.
+    enum UncertainMode {
+        // Should not be used - included to detected unitialized values.
+        UNKNOWN = 0;
+
+        // When converting, treat an ambiguious or uncertain answer as True.
+        UNCERTAIN_IS_TRUE = 1;
+
+        // When converting, treat an ambiguious or uncertain answer as False.
+        UNCERTAIN_IS_FALSE = 2;
+
+        // When converting, treat an ambiguious or uncertain answer as thought crime.
+        UNCERTAIN_IS_THOUGHT_CRIME = 3;
+    }
+
+    // Flag to define the behavior of the coercion when the input is not clearly true or false.
+    UncertainMode uncertain_mode = 2;
+}
+
+// This node prevents the given value from propagating further in the graph unless/until gating is true. 
+message BooleanGateNode {
+    // The input to pass through as output if the gate is true.
+    NodeRef value = 1;
+
+    // Determines if the input should be passed through or if a Thought Crime occurred. 
+    // Must be a boolean value or a node that produces a boolean value, e.g. Immediate, CoerceBoolean, BooleanAlgebraNode, etc.
+    NodeRef gating = 2;
+}

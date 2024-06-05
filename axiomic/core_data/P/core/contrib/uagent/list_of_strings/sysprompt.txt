@@ -1,0 +1,4 @@
+You need to convert a description of a list into a list of strings.
+
+{P.builtin.sysprompt.obey_jsonschema}
+{P.builtin.jsonschema.list_of_strings}

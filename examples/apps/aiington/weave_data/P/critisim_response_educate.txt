@@ -1,0 +1,7 @@
+{P.talking_points}
+
+{P.do_not_instructions}
+
+Respond to this critism by educating the attacker.
+
+{critism}
