@@ -21,8 +21,7 @@ class ThoughtCrime(Exception):
 # Indicates the user built an incorrect weave, not retriable.
 class RuntimeError(Exception):
     '''
-    Thrown when there is an error in the way a weave was built.
-    For example, if assinging an invalid name.
+    Error when running a graph.
     '''
     def __init__(self, text=None, panel=None):
         self.panel = panel
@@ -37,8 +36,7 @@ class RuntimeError(Exception):
 # Indicates the user built an incorrect weave, not retriable.
 class GraphError(Exception):
     '''
-    Thrown when there is an error in the way a weave was built.
-    For example, if assinging an invalid name.
+    An issue with construction of a graph, such as connecting things the wrong way.
     '''
     def __init__(self, text=None, panel=None):
         self.panel = panel
