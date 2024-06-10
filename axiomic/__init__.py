@@ -24,6 +24,8 @@ GraphError = _errors.GraphError
 # Functions
 infer = _functions.infer
 format = _functions.format
+load = _functions.load
+save = _functions.save
 
 
 # Params

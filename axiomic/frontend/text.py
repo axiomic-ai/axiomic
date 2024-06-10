@@ -152,6 +152,18 @@ def ref(ref_name):
 
 
 class Text:
+
+    @staticmethod
+    def _from_graph(graph: protos.axiomic.AxiomicGraph):
+        # Start with empty text
+        t = Text('')
+        # Re-arrange to the innards
+        t.graph_builder = nF.GraphBuilder(graph.nodes)
+        # I think the first node should be the most recent, but this may be true...
+        t.node = graph.nodes[0]
+        t.given_name = t.node.name
+        return t
+
     def __init__(self, node: any, eager=False, json=False, name=None, nav_breadcrumbs={}, autoexpand=True):
         self.eager = eager
         self.nav_breadcrumbs = nav_breadcrumbs
@@ -436,6 +448,9 @@ class Text:
         Prints the execution graph of this weave to the console.
         '''
         engine.print_graph(self.graph_builder.get_graph(), self.node)
+
+    def get_graph(self):
+        return self.graph_builder.get_graph()
 
     def _rag_topk(self, rag_provider, k=3, separator='\n'):
         m = self._merger()

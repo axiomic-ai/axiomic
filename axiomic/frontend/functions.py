@@ -1,6 +1,8 @@
 
 import axiomic.frontend.text as text
 
+import axiomic.graph.serialize as serialize
+
 
 def format(template: str, **kwargs) -> text.Text:
     '''
@@ -46,3 +48,45 @@ def infer(prompt: any, system_prompt=None, history_pairs=[], name=None) -> text.
 
     return text.Text(prompt).infer(system_prompt=system_prompt, history_pairs=history_pairs, name=name)
 
+
+SerializableType = text.Text
+
+def save(agent: SerializableType, path: str):
+    '''
+    Saves the agent to a file.
+
+    .. code-block:: python
+
+        agent = axiomic.Text('Hello, World!')
+        axiomic.save(agent, 'hello_world.axiomic')
+
+    Args:
+        agent: The agent to save.
+        path: The path to save the agent to.
+
+    Raises:
+        GraphError: If there was an error building this graph by the developer.
+    '''
+    serialize.graph_to_file(agent.get_graph(), path)
+
+
+def load(path: str) -> text.Text:
+    '''
+    Loads an agent from a file.
+
+    .. code-block:: python
+
+        agent = axiomic.load('hello_world.axiomic')
+        assert 'Hello, World!' == agent.value()
+
+    Args:
+        path: The path to load the agent from.
+
+    Returns:
+        The loaded agent.
+
+    Raises:
+        GraphError: If there was an error building this graph by the developer.
+    '''
+    graph = serialize.graph_from_file(path)
+    return text.Text._from_graph(graph)
