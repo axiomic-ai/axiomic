@@ -16,9 +16,12 @@ def defualt_name(basename):
 
 class GraphBuilder:
     
-    def __init__(self):
+    def __init__(self, nodes=[]):
         self.nodes = []
         self.node_map = {}
+
+        for node in nodes:
+            self.add_node(node)
 
     def get_graph(self):
         wg = protos.axiomic.AxiomicGraph()

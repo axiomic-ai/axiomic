@@ -7,3 +7,6 @@ text_parse = proto.text_parse
 text_dump = proto.text_dump
 text_format = proto.text_format
 json_dump = proto.json_dump
+
+file_dump = proto.file_dump
+file_parse = proto.file_parse
