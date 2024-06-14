@@ -33,6 +33,7 @@ class ModelContext:
         self.image_height = None
         self.embedding_provider_name = None
         self.embedding_model_name = None
+        self.tracing = None
     
     def __str__(self):
         return str(self.__dict__)
@@ -147,6 +148,7 @@ def Config(_context_name=None, **kwargs):
     neu.update_all(**kwargs)
     return ModelContextManager(neu)
 
+Tracing = Config(tracing=True, _context_name='Tracing')
 
 def LLMConfig(llm_provider_name: str = None, llm_model_name: str = None, llm_temperature: float = None, llm_max_tokens: int = None, _context_name=None):
     '''

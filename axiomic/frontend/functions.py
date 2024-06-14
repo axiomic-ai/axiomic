@@ -1,5 +1,6 @@
 
 import axiomic.frontend.text as text
+import axiomic.engine.functional as nF
 
 import axiomic.graph.serialize as serialize
 
@@ -47,6 +48,10 @@ def infer(prompt: any, system_prompt=None, history_pairs=[], name=None) -> text.
     '''
 
     return text.Text(prompt).infer(system_prompt=system_prompt, history_pairs=history_pairs, name=name)
+
+
+def cond(check: text.Text, if_true: text.Text, if_false: text.Text) -> text.Text:
+    return text.Text(check).cond(if_true, if_false)
 
 
 SerializableType = text.Text

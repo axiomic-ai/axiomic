@@ -173,6 +173,17 @@ def coerce_boolean(gb: GraphBuilder, value: any):
     return gb.upbox_node(coerce_boolean_node)
 
 
+def conditional(gb: GraphBuilder, check: any, true_value: any, false_value: any):
+    check_node = gb.autobox_as_node(check)
+    true_node = gb.autobox_as_node(true_value)
+    false_node = gb.autobox_as_node(false_value)
+    cond_node = protos.axiomic.ConditionalNode()
+    cond_node.check.name = check_node.name
+    cond_node.true_branch.name = true_node.name
+    cond_node.false_branch.name = false_node.name
+    return gb.upbox_node(cond_node)
+
+
 def boolean_gate(gb: GraphBuilder, boolean: any, gating: any):
     boolean = gb.autobox_as_node(boolean)
     gating = gb.autobox_as_node(gating)

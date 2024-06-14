@@ -8,6 +8,7 @@ import axiomic.engine.node_impls.name_node as name_node
 import axiomic.engine.node_impls.txt_to_img_node as txt_to_img_node
 import axiomic.engine.node_impls.builtin_binary_check_node as builtin_binary_check_node
 import axiomic.engine.node_impls.builtin_unary_check_node as builtin_unary_check_node
+import axiomic.engine.node_impls.conditional_node as conditional_node
 
 
 import axiomic.protos as protos
@@ -25,7 +26,8 @@ NODES = [
     ('name_node', protos.axiomic.NameNode, name_node.name_node),
     ('text_to_images_node', protos.axiomic.TextToImagesNode, txt_to_img_node.txt_to_img_node),
     ('builtin_binary_check_node', protos.axiomic.BuiltinBinaryCheckNode, builtin_binary_check_node.builtin_binary_check_node),
-    ('builtin_unary_check_node', protos.axiomic.BuiltinUnaryCheckNode, builtin_unary_check_node.builtin_unary_check_node)
+    ('builtin_unary_check_node', protos.axiomic.BuiltinUnaryCheckNode, builtin_unary_check_node.builtin_unary_check_node),
+    ('conditional_node', protos.axiomic.ConditionalNode, conditional_node.conditional_node),
 ]
 
 
@@ -34,6 +36,7 @@ def field_from_proto(proto):
     for node in NODES:
         if type_ == str(node[1]):
             return node[0]
+
 
 def exec_hook_by_field_name(field_name):
     for node in NODES:

@@ -32,8 +32,8 @@ MAP_START_TO_END = {
 
 
 EVENTS = {
-    EventType.LLM_INFERENCE_START: namedtuple('LlmInferenceStart', ['model_name', 'temperature', 'max_tokens', 'user_message', 'system_prompt', 'history_pairs', 'provider_name']),
-    EventType.LLM_INFERENCE_END: namedtuple('LlmInferenceEnd', ['model_name', 'duration_s', 'input_tokens', 'output_tokens', 'response', 'provider_name']),
+    EventType.LLM_INFERENCE_START: namedtuple('LlmInferenceStart', ['model_name', 'temperature', 'max_tokens', 'user_message', 'system_prompt', 'history_pairs', 'provider_name', 'verbose']),
+    EventType.LLM_INFERENCE_END: namedtuple('LlmInferenceEnd', ['model_name', 'duration_s', 'input_tokens', 'output_tokens', 'response', 'provider_name', 'verbose']),
     EventType.RAG_QUERY_START: namedtuple('RagQueryStart', ['query', 'k', 'rag_provider']),
     EventType.RAG_QUERY_END: namedtuple('RagQueryEnd', ['duration_s', 'k', 'results', 'rag_provider']),
     EventType.CONFIG_DISCOVER: namedtuple('ConfigDiscover', ['message']),

@@ -1,0 +1,4 @@
+{instructions}
+
+{P.core.sysprompt.obey_jsonschema}
+{P.core.jsonschema.boolean}

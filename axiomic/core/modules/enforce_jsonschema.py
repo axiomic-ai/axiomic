@@ -2,6 +2,7 @@
 import axiomic
 import axiomic.core.checks as checks
 
+
 class EnforceJsonSchema:
     def __init__(self, schema):
         self.schema = schema

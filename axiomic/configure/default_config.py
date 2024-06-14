@@ -13,7 +13,7 @@ class FileRefStoreConfig(BaseSettings):
 
     class Config:
         env_file = ".env"
-        env_prefix = "WEAVE_FILE_"
+        env_prefix = "AXIOMIC_FILE_"
     
     @field_validator('data_path')
     def set_abs_path_and_validate_existence(cls, v):
@@ -34,7 +34,7 @@ class LLMConfig(BaseSettings):
 
     class Config:
         env_file = ".env"
-        env_prefix = "WEAVE_TEXT_"
+        env_prefix = "AXIOMIC_TEXT_"
 
 
 class ConsoleConfig(BaseSettings):
@@ -44,7 +44,7 @@ class ConsoleConfig(BaseSettings):
 
     class Config:
         env_file = ".env"
-        env_prefix = "WEAVE_CONSOLE_"
+        env_prefix = "AXIOMIC_CONSOLE_"
 
 
 file_ref_store = FileRefStoreConfig()

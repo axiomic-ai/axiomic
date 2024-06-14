@@ -15,6 +15,7 @@ class LlmHistoryInferenceRequest:
     user_message: str
     system_prompt: str
     history_pairs: List[Tuple[str, str]]
+    verbose: bool
 
 
 @dataclasses.dataclass
@@ -49,10 +50,11 @@ class LlmProvider:
             'user_message': llm_history_inference.user_message,
             'system_prompt': llm_history_inference.system_prompt,
             'history_pairs': llm_history_inference.history_pairs,
-            'provider_name': provider_name
+            'provider_name': provider_name,
+            'verbose': llm_history_inference.verbose
         }
 
         with logalytics.LlmInference(provider_name, info) as c:
             resp = self.llm_provider_ipml.infer_history(llm_history_inference)
-            c.end(model_name=llm_history_inference.model_name, input_tokens=resp.input_tokens, output_tokens=resp.output_tokens, duration_s=resp.duration_s, response=resp.response, provider_name=provider_name)
+            c.end(model_name=llm_history_inference.model_name, input_tokens=resp.input_tokens, output_tokens=resp.output_tokens, duration_s=resp.duration_s, response=resp.response, provider_name=provider_name, verbose=llm_history_inference.verbose)
             return resp

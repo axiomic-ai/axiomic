@@ -124,16 +124,15 @@ class ConsoleLog:
         print(f'[dim](axiomic) {event.info.message}[/dim]')
 
     def log_llm_inference_start(self, event: events.Event):
-        # print(f'{event.name} :: {event.info.model_name}')
-        # if models.infer_context().verbose_llm:
-        #    verbose_llm_inference(event)
+        if event.info.verbose:
+            verbose_llm_inference(event)
         start_spinner(message=f'LLM Inference: {event.name} {event.info.model_name}')
 
     def log_llm_inference_end(self, event: events.Event):
         stop_spinner()
         print(f'[bold][blue]{event.name}: {event.info.input_tokens} toks -> {event.info.model_name} -> {event.info.output_tokens} toks (in {event.info.duration_s:.2f}s)[/blue][/bold]')
-        # if configure.infer_context().verbose_llm:
-        #    verbose_llm_inference_end(event)
+        if event.info.verbose:
+            verbose_llm_inference_end(event)
 
     def rag_query_start(self, event: events.Event):
         start_spinner(message=f'RAG: {event.info.rag_provider} k={event.info.k}')

@@ -29,6 +29,14 @@ def detect_keys(text):
     return KEY_REGEX.findall(text)
 
 
+
+def direct_format(template: str, inputs: dict) -> str:
+    for k, v in inputs.items():
+        template = template.replace(f'{{{k}}}', v)
+    
+    return template
+
+
 def format_node(fn: protos.axiomic.FormatNode, context, weave_node: protos.axiomic.AxiomicNode) -> str:
     template = context.resolve_node(fn.template)
     inputs = fn.inputs
@@ -43,9 +51,11 @@ def format_node(fn: protos.axiomic.FormatNode, context, weave_node: protos.axiom
     missing_keys = set(all_keys) - set(input_map.keys())
     place_holders = {k: f'{{{k}}}' for k in missing_keys}
     input_map.update(place_holders)
-    try:
-        out = template.format(**input_map)
-    except KeyError:
-        raise ValueError(f'Failed to format template: {template} with inputs: {input_map}')
+
+    out = direct_format(template, input_map)
+    # try:
+    #    out = template.format(**input_map)
+    #except KeyError:
+    #    raise ValueError(f'(format Key error) Failed to format template: {template} with inputs: {input_map}')
     return out
 

@@ -38,7 +38,8 @@ def history_complete(node: protos.axiomic.HistoryCompleteNode, c, weave_node: pr
         params.llm_max_tokens,
         cw,
         sp,
-        history_pairs
+        history_pairs,
+        models.infer_context().verbose_llm
     )
 
     resp = models.get_provider_provider().get_provider(llm_provider_name).infer_history(req)

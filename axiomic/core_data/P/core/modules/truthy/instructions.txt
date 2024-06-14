@@ -1,0 +1,1 @@
+Determine if the statement is true or false.

@@ -26,6 +26,7 @@ infer = _functions.infer
 format = _functions.format
 load = _functions.load
 save = _functions.save
+cond = _functions.cond
 
 
 # Params

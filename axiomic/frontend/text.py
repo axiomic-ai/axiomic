@@ -202,6 +202,12 @@ class Text:
         m.merge_from(self)
         return m
 
+    def cond(self, if_true, if_false):
+        m = self._merger()
+        if_true = m.autoweave(if_true)
+        if_false = m.autoweave(if_false)
+        return m.subweave(nF.conditional(self.graph_builder, self.node, if_true.node, if_false.node))
+
     def infer_image(self, n=1, name=None):
         m = self._merger()
         c = models.infer_context()
