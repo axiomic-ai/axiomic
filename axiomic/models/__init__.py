@@ -12,7 +12,7 @@ from axiomic.models.generic import Generic, bind
 from axiomic.models.models_together import Together
 from axiomic.models.models_openai import OpenAI
 from axiomic.models.models_anthropic import Anthropic
-
+from axiomic.models.models_google import Google
 
 discover.discover_providers()
 

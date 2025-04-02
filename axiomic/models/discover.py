@@ -11,6 +11,7 @@ import axiomic.logalytics.sink as sink
 import axiomic.models.models_openai as quick_openai
 import axiomic.models.models_together as quick_together
 import axiomic.models.models_anthropic as quick_anthropic
+import axiomic.models.models_google as quick_google
 import axiomic.models.generic as generic
 import axiomic.configure.runtime_config as runtime_config
 
@@ -49,6 +50,7 @@ def discover_providers():
     _announce_provider('OPENAI_API_KEY', 'OpenAI')
     _announce_provider('ANTHROPIC_API_KEY', 'Anthropic')
     _announce_provider('TOGETHER_API_KEY', 'Together')
+    _announce_provider('GOOGLE_API_KEY', 'Google')
 
     # Open AI discovery
     _discovery('OPENAI_API_KEY', default_providers.OPENAI_LLM)
@@ -63,6 +65,11 @@ def discover_providers():
 
     if 'ANTHROPIC_API_KEY' in os.environ:
         quick_anthropic.Anthropic.bind()
+
+    _discovery('GOOGLE_API_KEY', default_providers.GOOGLE_LLM)
+
+    if 'GOOGLE_API_KEY' in os.environ:
+        quick_google.Google.bind()
 
     # Together Discovery
     _discovery('TOGETHER_API_KEY', default_providers.TOGETHER_LLM)
