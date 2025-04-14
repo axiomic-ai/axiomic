@@ -42,14 +42,14 @@ def complete_history(prompt, model_name, max_tokens, system=None, history_pairs=
         **extra
     )
     end = time.time()
-    
+
     return message.content[0].text, message.usage.input_tokens, message.usage.output_tokens, end - start
 
 
 class AntropicLlmProvider:
 
     def get_default_context_params(self):
-        return {'llm_provider_name': 'anthropic_text', 'llm_model_name': 'claude-3-sonnet-20240229', 'llm_temperature': 0.5, 'llm_max_tokens': 1024}
+        return {'llm_provider_name': 'anthropic_text', 'llm_model_name': 'claude-3-5-sonnet-latest', 'llm_temperature': 0.5, 'llm_max_tokens': 1024}
 
     def get_provider_name(self):
         return 'anthropic_text'
@@ -57,9 +57,9 @@ class AntropicLlmProvider:
     def infer_history(self, llm_history_inference: llm_provider.LlmHistoryInferenceRequest) -> llm_provider.LlmInferenceResponse:
         retriable_error_text = None
         try:
-            response, in_toks, out_toks, dur_s = complete_history(llm_history_inference.user_message, 
-                                                                llm_history_inference.model_name, 
-                                                                llm_history_inference.max_tokens, 
+            response, in_toks, out_toks, dur_s = complete_history(llm_history_inference.user_message,
+                                                                llm_history_inference.model_name,
+                                                                llm_history_inference.max_tokens,
                                                                 history_pairs=llm_history_inference.history_pairs,
                                                                 system=llm_history_inference.system_prompt)
         except anthropic.InternalServerError as e:
@@ -80,5 +80,5 @@ class AntropicLlmProvider:
             output_tokens=out_toks,
             duration_s=dur_s
         )
-            
+
         return resp

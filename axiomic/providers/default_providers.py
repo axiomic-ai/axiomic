@@ -1,6 +1,7 @@
 
 import axiomic.providers.llm_provider.llm_provider as llm_provider
 import axiomic.providers.llm_provider.anthropic_llm as anthropic_llm
+import axiomic.providers.llm_provider.google_llm as google_llm
 import axiomic.providers.llm_provider.openai_llm as openai_llm
 import axiomic.providers.param_provider.filesys_params as fs_params
 import axiomic.providers.param_provider.param_provider as param_provider
@@ -16,6 +17,7 @@ FILESYSTME_PARAMS = param_provider.ParamProvider(fs_params.FilesystemParamProvid
 TOGETHER_LLM = llm_provider.LlmProvider(together_llm.TogetherProviderLlmImpl())
 TOGETHER_IMG = img_provider.ImgProvider(together_img.TogetherImageProviderImpl())
 ANTHROPIC_LLM = llm_provider.LlmProvider(anthropic_llm.AntropicLlmProvider())
+GOOGLE_LLM = llm_provider.LlmProvider(google_llm.GoogleLlmProvider())
 OPENAI_LLM = llm_provider.LlmProvider(openai_llm.OpenAiLlmProvider())
 OPENAI_IMG = img_provider.ImgProvider(openai_img.OpenAiImageProviderImpl())
 OPENAI_EMBED = embedding_provider.EmbeddingProvider(openai_embed.OpenAiLlmProviderImpl())

@@ -23,7 +23,7 @@ class Anthropic:
             ''' Default Sonnet, you need to also `export ANTHROPIC_API_KEY=sk-...` '''
             Sonnet = Config(
                 llm_provider_name='anthropic_text',
-                llm_model_name='claude-3-sonnet-20240229',
+                llm_model_name='claude-3-5-sonnet-latest',
                 llm_temperature=0.5,
                 llm_max_tokens=1024,
                 _context_name='AnthropicSonnet'
