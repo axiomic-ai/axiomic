@@ -4,11 +4,11 @@
 
 # Axiomic
 
-Create Generative AI Apps and Agents which work. Join the beta today. You can see the [launch post](https://medium.com/@bitfort/06c6923fbf3c) for a detailed explanation.
+Create generative AI Apps and Agents which work. Join the beta today. You can see the [launch post](https://medium.com/@bitfort/06c6923fbf3c) for a detailed explanation.
 
-In brief, Axiomic focuses on a few key tools that are necessary to make an agent. Axiomic works best combined with parts of the larger ecosystem, such as model providers (OpenAI, Anthropic, Together, etc.), vector databases, document extracts (e.g. LlamaIndex), and others.
+In brief, Axiomic focuses on a few key tools that are necessary to make an agent. Axiomic works best combined with parts of the larger ecosystem such as model providers (OpenAI, Anthropic, Together, etc.), vector databases, document extracts (e.g. LlamaIndex), and others.
 
-Here, we focus on sipmle, reliable, portable, and introspectable tools and building blocks. What this specifically means:
+Here, we focus on simple, reliable, portable, and introspectable tools and building blocks. What this specifically means:
 
 - Easy to look under the hood to know what your agent is doing
 - Easy to move between models
